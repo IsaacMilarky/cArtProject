@@ -25,7 +25,7 @@ int main()
 	}
 	if(!face.loadFromFile("face.jpeg"))
 	{
-		std::cout << "cunt" << std::endl;
+		std::cout << "error" << std::endl;
 		return -1;
 	}
 	std::cout << "Load successful" << std::endl;
@@ -38,7 +38,7 @@ int main()
 				toManip.setPixel(x,y,face.getPixel(x,y));
 			
 		}
-		//the things i do for cunt shit fuck cunt
+		//the things i do.
 		std::cout << (double)(x/toManip.getSize().x) * 100. << '%' << std::endl;
 	}
 	return 0;
