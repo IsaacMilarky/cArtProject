@@ -1,7 +1,7 @@
 #include "splice.hpp"
 
 
-Splice::Splice(sf::Image left, sf::Image right)
+Splice::Splice(sf::Image * left, sf::Image * right)
 {
     this->leftImage = leftImage;
     this->rightImage = rightImage;
@@ -9,15 +9,12 @@ Splice::Splice(sf::Image left, sf::Image right)
 
 const sf::Image * Splice::getRightImage()
 {
-    //Create constant reference to image to avoid useless copies
-    const sf::Image * rightRef = &this->rightImage;
-    return rightRef;
+    return this->rightImage;
 }
 
 const sf::Image * Splice::getLeftImage()
 {
-    const sf::Image * leftRef = &this->leftImage;
-    return leftRef;
+    return this->leftImage;
 }
 
 void Splice::setColorToReplace(sf::Color toReplace)
@@ -27,13 +24,21 @@ void Splice::setColorToReplace(sf::Color toReplace)
 
 sf::Image Splice::createSplicedImage()
 {
-    for(unsigned x = 0; x < this->leftImage.getSize().x; ++x)
+    sf::Image toReturn = sf::Image();
+    std::cout << this->leftImage << std::endl;
+    //Make empty image the same size as the left image.
+    toReturn.create(this->leftImage->getSize().x,this->leftImage->getSize().y, NULL);
+
+    std::cout << this->leftImage->getSize().x << std::endl;
+    for(unsigned x = 0; x < this->leftImage->getSize().x; ++x)
     {
-        for(unsigned y = 0; y < this->leftImage.getSize().y; ++y)
+        for(unsigned y = 0; y < this->leftImage->getSize().y; ++y)
         {
-            if(this->leftImage.getPixel(x,y) == this->switchColor)
-                this->leftImage.setPixel(x,y,this->rightImage.getPixel(x,y));
+            //Use a modulus to keep it in range.
+            if(this->leftImage->getPixel(x,y) == this->switchColor)
+                toReturn.setPixel(x,y,this->rightImage->getPixel(x % this->rightImage->getSize().x,y % this->rightImage->getSize().y));
         }
-        std::cout << (double)(x/this->leftImage.getSize().x) * 100. << '%' << std::endl;
     }
+
+    return toReturn;
 }
