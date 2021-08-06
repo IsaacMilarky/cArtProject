@@ -50,7 +50,7 @@ int main(int argc, char *argv[])
 	product.setColorToReplace(sf::Color(0,0,0));
 
 	std::cout << "Splicing..." << std::endl;
-	sf::Image finalImage = product.createSplicedImage();
+	const sf::Image finalImage = product.createSplicedImage();
 	finalImage.saveToFile("Art.jpg");
 
 	delete leftImage;

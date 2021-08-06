@@ -11,7 +11,7 @@
 class Splice
 {
     public:
-        Splice(sf::Image*,sf::Image*);
+        Splice(const sf::Image*,const sf::Image*);
 
         const sf::Image * getRightImage();
         const sf::Image * getLeftImage();
@@ -20,8 +20,8 @@ class Splice
 
         sf::Image createSplicedImage();
     private:
-        sf::Image * leftImage;
-        sf::Image * rightImage;
+        const sf::Image * leftImage;
+        const sf::Image * rightImage;
         sf::Color switchColor;
 
 };
