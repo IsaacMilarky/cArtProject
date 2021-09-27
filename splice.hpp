@@ -1,7 +1,7 @@
 #pragma once
 #include <iostream>
 #include <string>
-#include <SFML/Graphics.hpp>
+#include <opencv2/opencv.hpp>
 
 /*
     Splice represents two images spliced together in some way.
@@ -11,17 +11,19 @@
 class Splice
 {
     public:
-        Splice(const sf::Image*,const sf::Image*);
+        Splice(const cv::Mat*,const cv::Mat*);
 
-        const sf::Image * getRightImage();
-        const sf::Image * getLeftImage();
+        const cv::Mat * getRightImage();
+        const cv::Mat * getLeftImage();
 
-        void setColorToReplace(sf::Color);
+        void setColorToReplace(cv::Vec3b);
 
-        sf::Image createSplicedImage();
+        cv::Mat createSplicedImage();
     private:
-        const sf::Image * leftImage;
-        const sf::Image * rightImage;
-        sf::Color switchColor;
+        bool colorsAreEqual(cv::Vec3b, cv::Vec3b);
+
+        const cv::Mat * leftImage;
+        const cv::Mat * rightImage;
+        cv::Vec3b switchColor;
 
 };

@@ -19,10 +19,12 @@ SET(CMAKE_CXX_STANDARD_REQUIRED True)
 set(CMAKE_BUILD_TYPE Debug)
 
 # Find SFML
-find_package(SFML 2.5 COMPONENTS audio graphics window system REQUIRED)
+#find_package(SFML 2.5 COMPONENTS audio graphics window system REQUIRED)
+find_package(OpenCV REQUIRED )
+include_directories( ${OpenCV_INCLUDE_DIRS} )
 add_executable(Art main.cpp splice.cpp)
 target_include_directories(Art PRIVATE "${PROJECT_BINARY_DIR}")
 
-target_link_libraries(Art sfml-graphics)
+target_link_libraries(Art ${OpenCV_LIBS})
 
 install(TARGETS Art DESTINATION bin)
