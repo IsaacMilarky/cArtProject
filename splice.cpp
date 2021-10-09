@@ -39,16 +39,19 @@ cv::Mat Splice::createSplicedImage()
 
             //Get pixel
             cv::Vec3b pixel = this->leftImage->at<cv::Vec3b>(cv::Point(x,y));
+            auto color = this->rightImage->at<cv::Vec3b>(cv::Point(x % rightSize.width,y % rightSize.height));
+
             //Use a modulus to keep it in range.
             if(this->colorsAreEqual(pixel,this->switchColor))
             {
               //auto color = this->rightImage->getPixel(x % this->rightImage->getSize().x,y % this->rightImage->getSize().y);
-            
-
-              auto color = this->rightImage->at<cv::Vec3b>(cv::Point(x % rightSize.width,y % rightSize.height));
-
+              
               toReturn.at<cv::Vec3b>(x,y) = color;
               std::cout << "(x,y): (" << x << "," << y << ") " << std::endl;
+            }
+            else
+            {
+                toReturn.at<cv::Vec3b>(x,y) = pixel;
             }
                 
         }
@@ -62,5 +65,5 @@ cv::Mat Splice::createSplicedImage()
 
 bool Splice::colorsAreEqual(cv::Vec3b colorOne, cv::Vec3b colorTwo)
 {
-    return colorOne.val[0] == colorTwo.val[0] && colorOne.val[1] == colorTwo.val[1] && colorOne.val[2] == colorTwo.val[2];
+    return colorOne.val[0] == colorTwo.val[0];// && colorOne.val[1] == colorTwo.val[1];
 }
